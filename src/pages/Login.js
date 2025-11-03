@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 
 // ✅ Use environment variable instead of localhost
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL = "https://pdfly-backend.onrender.com/api";
 
 export default function Login() {
   const { setUser } = useContext(AuthContext);
