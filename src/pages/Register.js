@@ -3,7 +3,8 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-const API_BASE_URL = "http://localhost:5000/api";
+// ✅ Use environment variable
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function Register() {
   const { setUser } = useContext(AuthContext);
@@ -24,18 +25,15 @@ export default function Register() {
     setMessage("");
 
     try {
-      const res = await axios.post(`${API_BASE_URL}/users/register`, formData);
+      const res = await axios.post(`${API_BASE_URL}/user/register`, formData); // ✅ match your route: /api/user
 
-      // Backend may respond differently depending on email verification setup
       if (res.data.token && res.data.user) {
-        // ✅ Automatically log user in (optional)
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
         setUser(res.data.user);
         setMessage("✅ Registration successful! Redirecting...");
         setTimeout(() => (window.location.href = "/dashboard"), 1000);
       } else {
-        // ✅ Email verification flow
         setMessage(
           res.data.message ||
             "✅ Registration successful! Please verify your email before logging in."

@@ -6,9 +6,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import VerifyEmail from "./pages/VerifyEmail";
 
-<Route path="/verify/:token" element={<VerifyEmail />} />
-
-
 function App() {
   return (
     <AuthProvider>
@@ -17,6 +14,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/verify/:token" element={<VerifyEmail />} /> {/* ✅ moved here */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -4,7 +4,8 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 
-const API_BASE_URL = "http://localhost:5000/api";
+// ✅ Use environment variable instead of localhost
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function Login() {
   const { setUser } = useContext(AuthContext);
@@ -20,7 +21,8 @@ export default function Login() {
     setError("");
 
     try {
-      const endpoint = isRegister ? "/users/register" : "/users/login";
+      // ✅ Match your backend route (/api/user/login)
+      const endpoint = isRegister ? "/user/register" : "/user/login";
       const res = await axios.post(`${API_BASE_URL}${endpoint}`, formData);
 
       const { token, user } = res.data;
@@ -37,10 +39,8 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
-      {/* Navbar stays fixed at the top */}
       <Navbar />
 
-      {/* Page content below navbar */}
       <div className="flex items-center justify-center pt-24 pb-10 px-4">
         <div className="p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg w-full max-w-md transition-all duration-300">
           <h2 className="text-2xl font-semibold mb-6 text-center">
